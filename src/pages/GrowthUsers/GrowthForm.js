@@ -15,7 +15,6 @@ const GrowthForm = () => {
   const [team, setTeam] = useState([]);
   const [location, setLocation] = useState([]);
   const [status, setStatus] = useState([]);
-  const [buttonStatus, setButtonStatus] = useState("Draft");
   const [show, setShow] = useState(false);
 
   const [loading, setLoading] = useState(false);
