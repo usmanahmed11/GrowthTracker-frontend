@@ -16,11 +16,8 @@ const GrowthForm = () => {
   const [location, setLocation] = useState([]);
   const [status, setStatus] = useState([]);
   const [show, setShow] = useState(false);
-
   const [loading, setLoading] = useState(false);
-
   const [skillSet, setSkillSet] = useState([]);
-
   const [growthData, setGrowthData] = useState({
     title: "",
     email_status: "Pending",
@@ -48,6 +45,11 @@ const GrowthForm = () => {
   const [subject, setSubject] = useState("");
   const [candidateInfo, setCandidateInfo] = useState([]);
 
+  // The useEffect hook gets email configuration data from the API and
+  // updates state variables using setTo(), setCc(), setBcc(), setSubject(), setGreetings() and setSignature()
+  // functions provided by React's useState hook.
+  // It takes an empty array [] as the second argument to only run once, when the component mounts.
+
   useEffect(() => {
     axios
       .get(API_URL + "/email-config")
@@ -64,6 +66,9 @@ const GrowthForm = () => {
       });
   }, []);
 
+  // The useEffect hook gets team data from the API and updates the team state variable using setTeam()
+  // function provided by React's useState hook.
+  // It takes an empty array [] as the second argument to only run once, when the component mounts.
   useEffect(() => {
     axios
       .get(API_URL + "/team")
@@ -75,6 +80,9 @@ const GrowthForm = () => {
       });
   }, []);
 
+  // The useEffect hook gets skill set data from the API and updates the skillSet
+  // state variable using setSkillSet() function provided by React's useState hook.
+  // It takes an empty array [] as the second argument to only run once, when the component mounts.
   useEffect(() => {
     axios
       .get(API_URL + "/skillSet")
@@ -86,6 +94,9 @@ const GrowthForm = () => {
       });
   }, []);
 
+  // The useEffect hook gets job titles data from the API and updates the
+  //jobTitles state variable using setJobTitles() function provided by React's useState hook.
+  // It takes an empty array [] as the second argument to only run once, when the component mounts.
   useEffect(() => {
     axios
       .get(API_URL + "/job-titles")
@@ -97,6 +108,9 @@ const GrowthForm = () => {
       });
   }, []);
 
+  // The fifth useEffect hook gets location data from the API and updates the location
+  // state variable using setLocation() function provided by React's useState hook.
+  // It takes an empty array [] as the second argument to only run once, when the component mounts.
   useEffect(() => {
     axios
       .get(API_URL + "/location")
@@ -108,6 +122,9 @@ const GrowthForm = () => {
       });
   }, []);
 
+  // The sixth useEffect hook gets status data from the API and updates the status state
+  // variable using setStatus() function provided by React's useState hook.
+  // It takes an empty array [] as the second argument to only run once, when the component mounts.
   useEffect(() => {
     axios
       .get(API_URL + "/status")
@@ -120,58 +137,82 @@ const GrowthForm = () => {
   }, []);
 
   const handleValidation = (e) => {
+    //Prevents the page from reloading
     e.preventDefault();
+
+    // set the loading state to true to indicate the form is being submitted
     setLoading(true);
 
+    // reset any previous errors
     setTitleError(null);
     setCandidateError([]);
 
+    // validate the title input
     if (!growthData.title) {
       setTitleError("Title is required");
     }
 
+    // validate the candidate information
     let errorList = [];
     growthData.candidateInfo.forEach((candidate, index) => {
       let candidateErrors = {};
+
+      // validate the name input
       if (!candidate.name) {
         candidateErrors.name = "Name is required";
       }
+
+      // validate the experience input
       if (!candidate.experience) {
         candidateErrors.experience = "Experience is required";
       }
+      // validate the skillset input
+
       if (!candidate.skillSet || candidate.skillSet.length === 0) {
         errorList[index] = {
           ...errorList[index],
           skillSet: "Skill set is required",
         };
       }
+      // validate the job title input
+
       if (!candidate.jobTitle) {
         candidateErrors.jobTitle = "Job title is required";
       }
+      // validate the team input
+
       if (!candidate.team) {
         candidateErrors.team = "Team is required";
       }
+      // validate the location input
+
       if (!candidate.location) {
         candidateErrors.location = "Location is required";
       }
+      // validate the joining date input
+
       if (!candidate.joiningDate) {
         candidateErrors.joiningDate = "Joining date is required";
       }
+      // validate the status input
+
       if (!candidate.status) {
         candidateErrors.status = "Status is required";
       }
+      // if there are any errors, add them to the errorList
       if (Object.keys(candidateErrors).length > 0) {
         errorList[index] = { ...errorList[index], ...candidateErrors };
       }
     });
 
+    // if there are any errors in the candidate information, set them and stop the form submission
     if (errorList.length > 0) {
       setCandidateError(errorList);
       setLoading(false);
 
       return;
     }
-
+    // if there are no errors, set the candidate information and show the confirmation modal
     setCandidateInfo(growthData.candidateInfo, growthData.title);
     setShow(true);
   };
@@ -183,6 +224,8 @@ const GrowthForm = () => {
     setTitleError(null);
     setCandidateError([]);
 
+    // Validate all the data before sending api request
+
     if (!growthData.title) {
       setTitleError("Title is required");
     }
@@ -228,11 +271,15 @@ const GrowthForm = () => {
 
       return;
     }
-    const growthDataWithStatus = { ...growthData, status : Sent };
+    // Adds the 'Sent' status to the growthData object
+    const growthDataWithStatus = { ...growthData, status: Sent };
+
+    // Sends a post request to the API with the growthData object
     try {
       axios
         .post(API_URL + "/growth", growthDataWithStatus)
         .then((response) => {
+          // If the request is successful, stops loading and shows a success toast message
           if (response.status === 200) {
             setLoading(false);
 
@@ -249,6 +296,7 @@ const GrowthForm = () => {
           }
         })
         .catch((error) => {
+          // If there's an error, stops loading and shows an error toast message
           setLoading(false);
 
           toast.error(error.response.data.error, {
@@ -263,6 +311,7 @@ const GrowthForm = () => {
           });
         });
     } catch (error) {
+      // If there's an error, stops loading and shows an error toast message
       setLoading(false);
 
       toast.error(error.response.data.error, {
@@ -276,33 +325,48 @@ const GrowthForm = () => {
         theme: "colored",
       });
     }
-
-    
   };
 
   const handleCandidateInfoChange = (e, index) => {
+    // Destructuring name and value from the event target.
     const { name, value } = e.target;
+
+    // Making a copy of the candidateInfo array using the spread operator.
     const newCandidateInfo = [...growthData.candidateInfo];
+
+    // If the name is skillSet, check if the value is an array or not.
     if (name === "skillSet") {
+      // If value is an array, set the value of the skillSet at the given index in the newCandidateInfo array to the value received in the event.
       if (Array.isArray(value)) {
         newCandidateInfo[index][name] = value;
       } else {
+        // If the value is not an array, map over the value and set the value of the skillSet at the given index
+        //in the newCandidateInfo array to an array of option values received in the event.
         newCandidateInfo[index][name] = value.map((option) => option.value);
       }
     } else {
+      // If the name is not skillSet, set the value of the name at the
+      // given index in the newCandidateInfo array to the value received in the event.
       newCandidateInfo[index][name] = value;
     }
+    // Update the growthData state with the newCandidateInfo array using the spread operator.
     setGrowthData({ ...growthData, candidateInfo: newCandidateInfo });
   };
 
   const handleDeleteCandidateInfo = (index) => {
+    // Create a copy of the candidateInfo array from the state
     const candidateInfoCopy = [...growthData.candidateInfo];
+
+    // Remove the candidate at the specified index from the copied array
     candidateInfoCopy.splice(index, 1);
+
+    // Update the state with the new candidateInfo array
     setGrowthData({
       ...growthData,
       candidateInfo: candidateInfoCopy,
     });
   };
+
   const handleClose = () => {
     setShow(false);
   };
@@ -423,7 +487,7 @@ const GrowthForm = () => {
       </Modal>
       <TopNavigation />
 
-      <div className="container body" style={{ overflowX: "hidden" }}>
+      <div className="container body" >
         <div className="right_col" role="main">
           <div className="my-padding">
             <div className="col-md-12 mx-auto">

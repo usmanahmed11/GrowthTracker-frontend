@@ -21,7 +21,6 @@ const EditGrowthUser = () => {
   const [candidateError, setCandidateError] = useState([]);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
   const [to, setTo] = useState([]);
   const [cc, setCc] = useState([]);
@@ -30,7 +29,6 @@ const EditGrowthUser = () => {
   const [signature, setSignature] = useState("");
   const [subject, setSubject] = useState("");
   const [candidateInfo, setCandidateInfo] = useState([]);
-
   const [growthData, setGrowthData] = useState({
     title: "",
     email_status: "Pending",

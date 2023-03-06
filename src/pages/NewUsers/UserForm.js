@@ -10,10 +10,12 @@ const UserForm = () => {
   const [emailError, setEmailError] = useState(null);
   const [roleError, setRoleError] = useState(null);
   const [nameError, setNameError] = useState(null);
-
   const [roles, setRoles] = useState([]);
-
   const [loading, setLoading] = useState(false);
+
+  // Below useEffect will run once when the component is mounted and make a GET request to fetch data from the server
+  // The fetched data will be set to the roles state using setRoles method
+  // If there is an error, it will be logged to the console
 
   useEffect(() => {
     axios

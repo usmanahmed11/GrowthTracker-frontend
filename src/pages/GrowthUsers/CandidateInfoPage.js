@@ -11,7 +11,6 @@ const CandidateInfoPage = () => {
   const [title, setTitle] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [status, setStatus] = useState("");
-
   const { titleId } = useParams();
 
   useEffect(() => {
