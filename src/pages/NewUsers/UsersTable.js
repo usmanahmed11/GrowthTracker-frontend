@@ -35,6 +35,7 @@ const UsersTable = () => {
     setShowSettings(!showSettings);
     setShowTable(false);
   };
+
   const handleDashboardClick = () => {
     setShowSettings(false);
     setShowTable(true);
@@ -43,11 +44,13 @@ const UsersTable = () => {
   const handleClose = () => {
     setShow(false);
   };
+
   const deleteUser = async (e, id) => {
     e.preventDefault();
     setDeleteId(id);
     setShow(true);
   };
+
   const handleDeleteItem = async () => {
     try {
       await axios
@@ -143,6 +146,7 @@ const UsersTable = () => {
       console.error(error);
     }
   };
+  
   useEffect(() => {
     const storedTexts = {};
     users.forEach((user) => {
@@ -302,5 +306,4 @@ const UsersTable = () => {
     </div>
   );
 };
-
 export default UsersTable;

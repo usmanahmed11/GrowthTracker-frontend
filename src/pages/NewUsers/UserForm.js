@@ -110,7 +110,7 @@ const UserForm = () => {
       });
     }
   };
-
+  
   return (
     <React.Fragment>
       <TopNavigation />
@@ -250,5 +250,4 @@ const UserForm = () => {
     </React.Fragment>
   );
 };
-
 export default UserForm;
