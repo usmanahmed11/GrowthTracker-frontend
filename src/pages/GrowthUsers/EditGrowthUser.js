@@ -7,6 +7,10 @@ import TopNavigation from "../../components/TopNavigation";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import API_URL from "../../config";
+import { Button, Modal } from "react-bootstrap";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Chips from "react-chips/lib/Chips";
 const EditGrowthUser = () => {
   const [jobTitles, setJobTitles] = useState([]);
   const [team, setTeam] = useState([]);
@@ -15,10 +19,18 @@ const EditGrowthUser = () => {
   const [skillSet, setSkillSet] = useState([]);
   const [titleError, setTitleError] = useState(null);
   const [candidateError, setCandidateError] = useState([]);
-  const [buttonStatus, setButtonStatus] = useState("Draft");
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [to, setTo] = useState([]);
+  const [cc, setCc] = useState([]);
+  const [bcc, setBcc] = useState([]);
+  const [greetings, setGreetings] = useState("");
+  const [signature, setSignature] = useState("");
+  const [subject, setSubject] = useState("");
+  const [candidateInfo, setCandidateInfo] = useState([]);
+
   const [growthData, setGrowthData] = useState({
     title: "",
     email_status: "Pending",
@@ -38,7 +50,21 @@ const EditGrowthUser = () => {
   });
   // use the useParams hook to get the id from the URL
   const { id } = useParams();
-
+  useEffect(() => {
+    axios
+      .get(API_URL + "/email-config")
+      .then((response) => {
+        setTo(response.data.to);
+        setCc(response.data.cc);
+        setBcc(response.data.bcc);
+        setSubject(response.data.subject);
+        setGreetings(response.data.greetings);
+        setSignature(response.data.signature);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   useEffect(() => {
     axios
       .get(API_URL + "/team")
@@ -132,8 +158,64 @@ const EditGrowthUser = () => {
   if (!growthData) {
     return <div>Growth data not found</div>;
   }
+  const handleValidation = (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const handleSubmit = (e) => {
+    setTitleError(null);
+    setCandidateError([]);
+
+    if (!growthData.title) {
+      setTitleError("Title is required");
+    }
+
+    let errorList = [];
+    growthData.candidateInfo.forEach((candidate, index) => {
+      let candidateErrors = {};
+      if (!candidate.name) {
+        candidateErrors.name = "Name is required";
+      }
+      if (!candidate.experience) {
+        candidateErrors.experience = "Experience is required";
+      }
+      if (!candidate.skillSet || candidate.skillSet.length === 0) {
+        errorList[index] = {
+          ...errorList[index],
+          skillSet: "Skill set is required",
+        };
+      }
+      if (!candidate.jobTitle) {
+        candidateErrors.jobTitle = "Job title is required";
+      }
+      if (!candidate.team) {
+        candidateErrors.team = "Team is required";
+      }
+      if (!candidate.location) {
+        candidateErrors.location = "Location is required";
+      }
+      if (!candidate.joiningDate) {
+        candidateErrors.joiningDate = "Joining date is required";
+      }
+      if (!candidate.status) {
+        candidateErrors.status = "Status is required";
+      }
+      if (Object.keys(candidateErrors).length > 0) {
+        errorList[index] = { ...errorList[index], ...candidateErrors };
+      }
+    });
+
+    if (errorList.length > 0) {
+      setCandidateError(errorList);
+      setLoading(false);
+
+      return;
+    }
+
+    setCandidateInfo(growthData.candidateInfo, growthData.title);
+    setShow(true);
+  };
+
+  const handleSubmit = (e, Sent) => {
     e.preventDefault();
 
     setLoading(true);
@@ -183,7 +265,8 @@ const EditGrowthUser = () => {
       setLoading(false);
       return;
     }
-    const growthDataWithStatus = { ...growthData, status: buttonStatus };
+    const growthDataWithStatus = { ...growthData, status: Sent };
+    console.log(growthData);
     try {
       axios
         .post(API_URL + `/growth/${id}`, growthDataWithStatus)
@@ -254,8 +337,123 @@ const EditGrowthUser = () => {
       candidateInfo: candidateInfoCopy,
     });
   };
+  const handleClose = () => {
+    setShow(false);
+  };
   return (
     <React.Fragment>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="lg"
+        candidateInfo={candidateInfo}
+      >
+        <Modal.Header>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="col-md-6 mx-auto">
+            <div className="x_content">
+              <div className="form-group row">
+                <label className="col-md-6 col-form-label">
+                  <span style={{ color: "red" }}>*</span> To:
+                </label>
+                <div className="col-md-10">
+                  <div className="has-feedback my-colorClass">
+                    <Chips value={to} className={"form-control "} />
+                  </div>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label className="col-md-6 col-form-label">CC:</label>
+                <div className="col-md-10">
+                  <div className="has-feedback my-colorClass">
+                    <Chips value={cc} className={"form-control"} />
+                  </div>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label className="col-md-6 col-form-label">BCC:</label>
+                <div className="col-md-10">
+                  <div className="has-feedback my-colorClass">
+                    <Chips value={bcc} className={"form-control"} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group row">
+                <label className="col-md-6 col-form-label">
+                  <span style={{ color: "red" }}>*</span>
+                  Subject:
+                </label>
+
+                <div className="col-md-10">
+                  <div
+                    className="has-feedback my-colorClass"
+                    style={{ position: "relative" }}
+                  >
+                    <input value={subject} className="form-control" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6 mx-auto">
+            <div>
+              <div>
+                <div className="form-group row">
+                  <label className="col-md-6 col-form-label">
+                    <span style={{ color: "red" }}>*</span>
+                    Greetings:
+                  </label>
+                  <div className="col-md-12 ckeditor-container">
+                    <div className="has-feedback my-colorClass">
+                      <CKEditor
+                        className={"form-control"}
+                        editor={ClassicEditor}
+                        disabled={ClassicEditor}
+                        data={greetings}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-group row">
+                  <label className="col-md-6 col-form-label">
+                    <span style={{ color: "red" }}>*</span>
+                    Signature:
+                  </label>
+                  <div className="col-md-12 ">
+                    <div className="has-feedback my-colorClass">
+                      <CKEditor
+                        className={"form-control"}
+                        editor={ClassicEditor}
+                        disabled={ClassicEditor}
+                        data={signature}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            type="submit"
+            className="btn btn-success"
+            onClick={(e) => {
+              handleSubmit(e, "Sent");
+              setShow(false);
+            }}
+          >
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <TopNavigation />
 
       <div className="container body" style={{ overflowX: "hidden" }}>
@@ -608,7 +806,7 @@ const EditGrowthUser = () => {
                         </div>
                       </div>
                     ))}
-                    <div className="d-flex justify-content-end">
+                    {/* <div className="d-flex justify-content-end">
                       <button
                         className="btn btn-primary btn-sm"
                         type="button"
@@ -634,7 +832,7 @@ const EditGrowthUser = () => {
                       >
                         <i className="fa fa-plus "></i>
                       </button>
-                    </div>
+                    </div> */}
                     <br />
 
                     <div className="col-md-5 form-group d-flex justify-content-start">
@@ -651,7 +849,7 @@ const EditGrowthUser = () => {
                         className="btn btn-secondary btn-sm"
                         value={loading ? "Loading..." : "Submit"}
                         disabled={loading || growthData.buttonStatus === "Sent"}
-                        onClick={() => setButtonStatus("Draft")}
+                        onClick={(e) => handleSubmit(e, "Draft")}
                       >
                         Save as Draft
                       </button>
@@ -660,7 +858,7 @@ const EditGrowthUser = () => {
                         type="submit"
                         value={loading ? "Loading..." : "Submit"}
                         className="btn btn-success btn-sm"
-                        onClick={() => setButtonStatus("Sent")}
+                        onClick={(e) => handleValidation(e)}
                         disabled={loading || growthData.buttonStatus === "Sent"}
                       >
                         Submit and Send

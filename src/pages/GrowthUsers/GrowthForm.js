@@ -173,7 +173,6 @@ const GrowthForm = () => {
     }
 
     setCandidateInfo(growthData.candidateInfo, growthData.title);
-    console.log(candidateInfo);
     setShow(true);
   };
 
