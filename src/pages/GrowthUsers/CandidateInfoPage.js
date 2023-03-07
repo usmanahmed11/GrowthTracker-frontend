@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import TopNavigation from "../../components/TopNavigation";
 import moment from "moment";
 import API_URL from "../../config";
+import { Link } from "react-router-dom";
 
 const CandidateInfoPage = () => {
   const [candidateInfo, setCandidateInfo] = useState(null);
@@ -56,7 +57,19 @@ const CandidateInfoPage = () => {
               <div className="x_panel">
                 <div className="x_title d-flex align-items-center justify-content-between">
                   <div className="title-container">
-                    <h5>{title}</h5>
+                  <div className="back-button">
+                      <Link to='/dashboard'>
+                        <i
+                         className="fa fa-arrow-left arrow"
+                          aria-hidden="true"
+                         
+                        ></i>
+                      </Link>
+                      <br />
+                      <span style={{ fontSize: "21px", color: "#73879c" }}>
+                       {title}
+                      </span>
+                    </div>
                   </div>
                   <div className="info-container d-flex align-items-center">
                     <label>Status:</label>

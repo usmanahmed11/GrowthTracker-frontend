@@ -93,8 +93,13 @@ const UpdatePassword = (props) => {
     <div className="login">
       <div className="login_wrapper">
         <div className="animate form login_form">
+          <div style={{ textAlign: "center" }}>
+            <img src="/images/growth-tracker.png" alt="" />
+            <br />
+            <h6>Reset Password</h6>
+            <br />
+          </div>
           <form onSubmit={handleSubmit}>
-            <h5>New Password</h5>
             <div
               className={passwordError ? "form-group has-error" : "form-group"}
             >
@@ -131,7 +136,8 @@ const UpdatePassword = (props) => {
                 <p style={{ color: "red" }}>{passwordConfirmationError}</p>
               )}
             </div>
-            <div className="form-group">
+            <br/>
+            <div className="form-group text-align">
               <button type="submit" className="btn btn-primary btn-sm">
                 Reset Password
               </button>

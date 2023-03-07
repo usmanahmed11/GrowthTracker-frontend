@@ -16,3 +16,17 @@
   padding-left: 150px;
   padding-right: 150px;
 }
+
+.back-button{
+  display: flex;
+  align-items: center;
+}
+
+.arrow{
+  padding-right: 9px;
+}
+
+.text-align{
+  text-align: center;
+}
+

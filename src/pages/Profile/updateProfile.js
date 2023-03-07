@@ -125,7 +125,19 @@ function UpdateProfile() {
     <div className="col-md-6 ">
       <div className="x_panel">
         <div className="x_title">
-          <h2>Update Profile </h2>
+        <div className="back-button">
+                    <Link to="/dashboard">
+                      <i
+                        className="fa fa-arrow-left arrow"
+                        aria-hidden="true"
+                        
+                      ></i>
+                    </Link>
+                    <br />
+                    <span style={{ fontSize: "21px", color: "#73879c" }}>
+                      Update Profile
+                    </span>
+                  </div>
 
           <div className="clearfix"></div>
         </div>

@@ -154,7 +154,19 @@ const EditUser = () => {
             <div className="col-md-12 mx-auto">
               <div className="x_panel">
                 <div className="x_title my-breadcrumbstyle">
-                  <h2>Edit User</h2>
+                  <div className="back-button">
+                    <Link to="/users">
+                      <i
+                        className="fa fa-arrow-left arrow"
+                        aria-hidden="true"
+                      
+                      ></i>
+                    </Link>
+                    <br />
+                    <span style={{ fontSize: "21px", color: "#73879c" }}>
+                      Edit User
+                    </span>
+                  </div>
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb m-0 my-bgcolor">
                       <li className="breadcrumb-item">

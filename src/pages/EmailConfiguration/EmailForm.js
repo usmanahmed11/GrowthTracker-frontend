@@ -115,7 +115,19 @@ function EmailForm() {
               <div className="col-md-12 mx-auto">
                 <div className="x_panel">
                   <div className="x_title my-breadcrumbstyle">
-                    <h2>Email Configuration</h2>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <Link to="/dashboard">
+                        <i
+                          className="fa fa-arrow-left arrow"
+                          aria-hidden="true"
+                        ></i>
+                      </Link>
+                      <br />
+                      <span style={{ fontSize: "21px", color: "#73879c" }}>
+                        Email Configuration
+                      </span>
+                    </div>
+
                     <nav aria-label="breadcrumb">
                       <ol
                         className="breadcrumb m-0"
@@ -133,10 +145,9 @@ function EmailForm() {
                       </ol>
                     </nav>
                   </div>
+
                   <div className="col-md-6 mx-auto">
                     <div className="x_content">
-                      <br />
-
                       <div className="form-group row">
                         <label className="col-md-6 col-form-label">
                           <span style={{ color: "red" }}>*</span> To:

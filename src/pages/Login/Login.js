@@ -84,8 +84,18 @@ function Login(props) {
   return (
     <div className="login">
       <div className="login_wrapper">
+       
         <div className="animate form login_form">
-          <h4 className="text-center">Login Form</h4>
+          <div style={{ textAlign: "center" }}>
+          <img
+          src="/images/growth-tracker.png"
+          alt=""
+        />
+        <br/>
+          <h5 className="text-center">Login Form</h5>
+          <br/>
+          </div>
+        
           <form onSubmit={handleSubmit} autocomplete="off">
             <div className={`form-group ${emailError ? "has-error" : ""}`}>
               <input
@@ -124,19 +134,6 @@ function Login(props) {
               <Link to="/reset-password">Forget Password</Link>
             </div>
             <br />
-            <div className="clearfix" />
-            <div className="separator">
-              <div className="clearfix" />
-              <br />
-              <div className="text-center">
-                <h1>
-                  <i className="fa fa-paw" /> Growth Tracker
-                </h1>
-                <p>
-                  ©2023 All Rights Reserved. Growth Tracker!Privacy and Terms
-                </p>
-              </div>
-            </div>
           </form>
         </div>
       </div>

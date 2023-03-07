@@ -68,8 +68,17 @@ const ResetPassword = () => {
     <div className="login">
       <div className="login_wrapper">
         <div className="animate form login_form">
+        <div style={{ textAlign: "center" }}>
+          <img
+          src="/images/growth-tracker.png"
+          alt=""
+        />
+        <br/>
+          <h6 >Forgot Password</h6>
+          <br/>
+          </div>
           <form onSubmit={handleSubmit}>
-            <h5>Forgot Password</h5>
+          
             <div className={`form-group ${emailError ? "has-error" : ""}`}>
               <div className={`form-group ${emailError ? "has-error" : ""}`}>
                 <input
@@ -84,7 +93,8 @@ const ResetPassword = () => {
                 {emailError && <p style={{ color: "red" }}>{emailError}</p>}
               </div>
             </div>
-            <div className="form-group">
+            <br/>
+            <div className="form-group text-align" >
               <button type="submit" className="btn btn-primary btn-sm">
                 Forget Password
               </button>
