@@ -26,6 +26,30 @@ function UpdateProfile() {
     "$1"
   );
 
+  const roleId = document.cookie.replace(
+    // eslint-disable-next-line
+    /(?:(?:^|.*;\s*)role_id\s*\=\s*([^;]*).*$)|^.*$/,
+    "$1"
+  );
+  
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            roleId,
+          },
+        };
+        const response = await axios.get(API_URL + "/user", config);
+        setName(response.data.name);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, [roleId , accessToken]);
+
   // Include the access token in the request header
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -125,19 +149,15 @@ function UpdateProfile() {
     <div className="col-md-6 ">
       <div className="x_panel">
         <div className="x_title">
-        <div className="back-button">
-                    <Link to="/dashboard">
-                      <i
-                        className="fa fa-arrow-left arrow"
-                        aria-hidden="true"
-                        
-                      ></i>
-                    </Link>
-                    <br />
-                    <span style={{ fontSize: "21px", color: "#73879c" }}>
-                      Update Profile
-                    </span>
-                  </div>
+          <div className="back-button">
+            <Link to="/dashboard">
+              <i className="fa fa-arrow-left arrow" aria-hidden="true"></i>
+            </Link>
+            <br />
+            <span style={{ fontSize: "21px", color: "#73879c" }}>
+              Update Profile
+            </span>
+          </div>
 
           <div className="clearfix"></div>
         </div>
@@ -155,6 +175,7 @@ function UpdateProfile() {
                     type="text"
                     id="name"
                     name="name"
+                    value={name}
                     onChange={handleNameChange}
                     className={`form-control ${
                       nameError ? "is-invalid" : ""
