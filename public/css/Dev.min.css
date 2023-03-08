@@ -29,4 +29,10 @@
 .text-align{
   text-align: center;
 }
+.login2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 

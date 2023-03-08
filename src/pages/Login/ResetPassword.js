@@ -65,18 +65,21 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="login">
-      <div className="login_wrapper">
-        <div className="animate form login_form">
-        <div style={{ textAlign: "center" }}>
-          <img
-          src="/images/growth-tracker.png"
-          alt=""
-        />
-        <br/>
-          <h6 >Forgot Password</h6>
-          <br/>
-          </div>
+    <div className="login2">
+       <div className="container" style={{ overflowX: "hidden" }}>
+       <div className="row justify-content-center">
+       <div className="col-lg-4 col-md-6 col-sm-8">
+       <div className="card shadow-lg">
+       <div className="card-body">
+       <div className="text-center">
+                  <img
+                    src="/images/growth-tracker.png"
+                    alt="Logo"
+                    height="72"
+                  />
+                </div>
+                <h5 className="card-title text-center mb-4">Forget Password</h5>
+          
           <form onSubmit={handleSubmit}>
           
             <div className={`form-group ${emailError ? "has-error" : ""}`}>
@@ -107,6 +110,9 @@ const ResetPassword = () => {
               <Link to="/login"> Log in </Link>
             </p>
           </div>
+          </div>
+          </div>
+        </div>
         </div>
       </div>
       <ToastContainer />

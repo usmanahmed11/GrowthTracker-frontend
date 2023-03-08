@@ -82,59 +82,72 @@ function Login(props) {
     }
   };
   return (
-    <div className="login">
-      <div className="login_wrapper">
-       
-        <div className="animate form login_form">
-          <div style={{ textAlign: "center" }}>
-          <img
-          src="/images/growth-tracker.png"
-          alt=""
-        />
-        <br/>
-          <h5 className="text-center">Login Form</h5>
-          <br/>
-          </div>
-        
-          <form onSubmit={handleSubmit} autocomplete="off">
-            <div className={`form-group ${emailError ? "has-error" : ""}`}>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className={
-                  emailError ? "form-control is-invalid" : "form-control"
-                }
-                placeholder="Email"
-              />
-              {emailError && <p style={{ color: "red" }}>{emailError}</p>}
-            </div>
+    <div className="login2">
+       <div className="container" style={{ overflowX: "hidden" }}>
+        <div className="row justify-content-center">
+          <div className="col-lg-4 col-md-6 col-sm-8">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <div className="text-center">
+                  <img
+                    src="/images/growth-tracker.png"
+                    alt="Logo"
+                    height="72"
+                  />
+                </div>
+                <h5 className="card-title text-center mb-4">Log in</h5>
+                <form onSubmit={handleSubmit} autocomplete="off">
+                  <div
+                    className={`form-group ${emailError ? "has-error" : ""}`}
+                  >
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className={
+                        emailError ? "form-control is-invalid" : "form-control"
+                      }
+                      placeholder="Email"
+                    />
+                    {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+                  </div>
 
-            <div
-              className={passwordError ? "form-group has-error" : "form-group"}
-            >
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className={
-                  passwordError ? "form-control is-invalid" : "form-control"
-                }
-                placeholder="Password"
-              />
-              {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
+                  <div
+                    className={
+                      passwordError ? "form-group has-error" : "form-group"
+                    }
+                  >
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      className={
+                        passwordError
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
+                      placeholder="Password"
+                    />
+                    {passwordError && (
+                      <p style={{ color: "red" }}>{passwordError}</p>
+                    )}
+                  </div>
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-block btn-sm"
+                    >
+                      Log In
+                    </button>
+                  </div>
+                </form>
+                <hr className="my-4" />
+                <div className="text-center">
+                  <Link to="/reset-password">Forgot password?</Link>
+                </div>
+              </div>
             </div>
-            <div className="text-center">
-              <button type="submit" className="btn-block btn-primary btn-sm">
-                Log In
-              </button>
-            </div>
-            <br />
-            <div className="text-center">
-              <Link to="/reset-password">Forget Password</Link>
-            </div>
-            <br />
-          </form>
+          </div>
         </div>
       </div>
       <ToastContainer />
