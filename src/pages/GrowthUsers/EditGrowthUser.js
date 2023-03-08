@@ -31,7 +31,7 @@ const EditGrowthUser = () => {
   const [candidateInfo, setCandidateInfo] = useState([]);
   const [growthData, setGrowthData] = useState({
     title: "",
-    email_status: "Pending",
+   
     candidateInfo: [
       {
         name: "",
@@ -127,7 +127,7 @@ const EditGrowthUser = () => {
         console.log(data);
         setGrowthData({
           title: data.title,
-          email_status: data.email_status,
+          
           buttonStatus: data.status,
           candidateInfo: data.candidate_info.map((candidate) => ({
             ...candidate,

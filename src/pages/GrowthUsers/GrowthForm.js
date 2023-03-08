@@ -20,7 +20,7 @@ const GrowthForm = () => {
   const [skillSet, setSkillSet] = useState([]);
   const [growthData, setGrowthData] = useState({
     title: "",
-    email_status: "Pending",
+    
     candidateInfo: [
       {
         name: "",
