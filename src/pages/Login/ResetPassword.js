@@ -78,7 +78,7 @@ const ResetPassword = () => {
                     height="72"
                   />
                 </div>
-                <h5 className="card-title text-center mb-4">Forget Password</h5>
+                <h6 className="card-title text-center mb-4">Forget Password</h6>
 
                 <form onSubmit={handleSubmit} autoComplete="off">
                   <div

@@ -236,9 +236,13 @@ const GrowthForm = () => {
       if (!candidate.name) {
         candidateErrors.name = "Name is required";
       }
+      
       if (!candidate.experience) {
         candidateErrors.experience = "Experience is required";
+      } else if (isNaN(candidate.experience)) {
+        candidateErrors.experience = "Experience must be a number";
       }
+      
       if (!candidate.skillSet || candidate.skillSet.length === 0) {
         errorList[index] = {
           ...errorList[index],
@@ -296,9 +300,8 @@ const GrowthForm = () => {
           }
         })
         .catch((error) => {
-          // If there's an error, stops loading and shows an error toast message
+          // If there's an error, stops loading and shows an error toast message  
           setLoading(false);
-
           toast.error(error.response.data.error, {
             position: "top-right",
             autoClose: 5000,
