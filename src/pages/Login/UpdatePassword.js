@@ -108,6 +108,7 @@ const UpdatePassword = (props) => {
             <div
               className={passwordError ? "form-group has-error" : "form-group"}
             >
+               <div className="input-group">
               <input
                 type="password"
                 id="password"
@@ -117,6 +118,12 @@ const UpdatePassword = (props) => {
                 }
                 placeholder="Password"
               />
+              <div className="input-group-append">
+                        <span className="input-group-text">
+                          <i className="fa fa-key" aria-hidden="true"></i>
+                        </span>
+                      </div>
+              </div>
               {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
             </div>
             <div
@@ -126,6 +133,7 @@ const UpdatePassword = (props) => {
                   : "form-group"
               }
             >
+               <div className="input-group">
               <input
                 type="password"
                 id="passwordConfirmation"
@@ -137,6 +145,12 @@ const UpdatePassword = (props) => {
                 }
                 placeholder="Confirm Password"
               />
+              <div className="input-group-append">
+                        <span className="input-group-text">
+                          <i className="fa fa-key" aria-hidden="true"></i>
+                        </span>
+                      </div>
+              </div>
               {passwordConfirmationError && (
                 <p style={{ color: "red" }}>{passwordConfirmationError}</p>
               )}

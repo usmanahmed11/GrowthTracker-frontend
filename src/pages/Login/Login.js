@@ -83,7 +83,7 @@ function Login(props) {
   };
   return (
     <div className="login2">
-       <div className="container" style={{ overflowX: "hidden" }}>
+      <div className="container" style={{ overflowX: "hidden" }}>
         <div className="row justify-content-center">
           <div className="col-lg-4 col-md-6 col-sm-8">
             <div className="card shadow-lg">
@@ -96,19 +96,28 @@ function Login(props) {
                   />
                 </div>
                 <h5 className="card-title text-center mb-4">Log in</h5>
-                <form onSubmit={handleSubmit} autocomplete="off">
+                <form onSubmit={handleSubmit} autoComplete="off">
                   <div
                     className={`form-group ${emailError ? "has-error" : ""}`}
                   >
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      className={
-                        emailError ? "form-control is-invalid" : "form-control"
-                      }
-                      placeholder="Email"
-                    />
+                    <div className="input-group">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className={
+                          emailError
+                            ? "form-control is-invalid"
+                            : "form-control"
+                        }
+                        placeholder="Email"
+                      />
+                      <div className="input-group-append">
+                        <span className="input-group-text">
+                          <i className="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
                     {emailError && <p style={{ color: "red" }}>{emailError}</p>}
                   </div>
 
@@ -117,17 +126,24 @@ function Login(props) {
                       passwordError ? "form-group has-error" : "form-group"
                     }
                   >
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      className={
-                        passwordError
-                          ? "form-control is-invalid"
-                          : "form-control"
-                      }
-                      placeholder="Password"
-                    />
+                    <div className="input-group">
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        className={
+                          passwordError
+                            ? "form-control is-invalid"
+                            : "form-control"
+                        }
+                        placeholder="Password"
+                      />
+                      <div className="input-group-append">
+                        <span className="input-group-text">
+                          <i className="fa fa-key" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
                     {passwordError && (
                       <p style={{ color: "red" }}>{passwordError}</p>
                     )}

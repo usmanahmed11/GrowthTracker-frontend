@@ -66,12 +66,12 @@ const ResetPassword = () => {
 
   return (
     <div className="login2">
-       <div className="container" style={{ overflowX: "hidden" }}>
-       <div className="row justify-content-center">
-       <div className="col-lg-4 col-md-6 col-sm-8">
-       <div className="card shadow-lg">
-       <div className="card-body">
-       <div className="text-center">
+      <div className="container" style={{ overflowX: "hidden" }}>
+        <div className="row justify-content-center">
+          <div className="col-lg-4 col-md-6 col-sm-8">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <div className="text-center">
                   <img
                     src="/images/growth-tracker.png"
                     alt="Logo"
@@ -79,40 +79,48 @@ const ResetPassword = () => {
                   />
                 </div>
                 <h5 className="card-title text-center mb-4">Forget Password</h5>
-          
-          <form onSubmit={handleSubmit}>
-          
-            <div className={`form-group ${emailError ? "has-error" : ""}`}>
-              <div className={`form-group ${emailError ? "has-error" : ""}`}>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className={
-                    emailError ? "form-control is-invalid" : "form-control"
-                  }
-                  placeholder="Email"
-                />
-                {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+
+                <form onSubmit={handleSubmit} autoComplete="off">
+                  <div
+                    className={`form-group ${emailError ? "has-error" : ""}`}
+                  >
+                    <div className="input-group">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className={
+                          emailError
+                            ? "form-control is-invalid"
+                            : "form-control"
+                        }
+                        placeholder="Email"
+                      />
+                      <div className="input-group-append">
+                        <span className="input-group-text">
+                          <i className="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                    {emailError && <p style={{ color: "red" }}>{emailError}</p>}
+                  </div>
+                  <br />
+                  <div className="form-group text-align">
+                    <button type="submit" className="btn btn-primary btn-sm">
+                      Forget Password
+                    </button>
+                  </div>
+                </form>
+
+                <div className="separator">
+                  <p className="change_link">
+                    Wanna Go Back?
+                    <Link to="/login"> Log in </Link>
+                  </p>
+                </div>
               </div>
             </div>
-            <br/>
-            <div className="form-group text-align" >
-              <button type="submit" className="btn btn-primary btn-sm">
-                Forget Password
-              </button>
-            </div>
-          </form>
-
-          <div className="separator">
-            <p className="change_link">
-              Wanna Go Back?
-              <Link to="/login"> Log in </Link>
-            </p>
           </div>
-          </div>
-          </div>
-        </div>
         </div>
       </div>
       <ToastContainer />
