@@ -7,9 +7,12 @@ import API_URL from "../../config";
 
 const ResetPassword = () => {
   const [emailError, setEmailError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     // get the login form data
     const formData = new FormData(e.target);
     const email = formData.get("email");
@@ -18,6 +21,8 @@ const ResetPassword = () => {
     // validate the form data
     if (!email) {
       setEmailError("Email is required");
+      setLoading(false);
+
       return;
     }
     try {
@@ -25,6 +30,7 @@ const ResetPassword = () => {
         .post(API_URL + "/password/email", { email })
         .then((response) => {
           if (response.status === 200) {
+            setLoading(false);
             toast.success(response.data.message, {
               position: "top-right",
               autoClose: 5000,
@@ -38,6 +44,8 @@ const ResetPassword = () => {
           }
         })
         .catch((error) => {
+          setLoading(false);
+
           toast.error(error.response.data.error, {
             position: "top-right",
             autoClose: 5000,
@@ -106,7 +114,12 @@ const ResetPassword = () => {
                   </div>
                   <br />
                   <div className="form-group text-align">
-                    <button type="submit" className="btn btn-primary btn-sm">
+                    <button
+                      type="submit"
+                      className="btn btn-primary btn-sm"
+                      value={loading ? "Loading..." : "Submit"}
+                      disabled={loading}
+                    >
                       Forget Password
                     </button>
                   </div>

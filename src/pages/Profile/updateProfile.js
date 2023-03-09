@@ -11,6 +11,7 @@ function UpdateProfile() {
   const [profilePicture, setProfilePicture] = useState(null);
   const [nameError, setNameError] = useState(null);
   const [profileError, setProfileError] = useState(null);
+
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -31,24 +32,24 @@ function UpdateProfile() {
     /(?:(?:^|.*;\s*)role_id\s*\=\s*([^;]*).*$)|^.*$/,
     "$1"
   );
-  
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            roleId,
-          },
-        };
-        const response = await axios.get(API_URL + "/user", config);
-        setName(response.data.name);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUser();
-  }, [roleId , accessToken]);
+
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       const config = {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //           roleId,
+  //         },
+  //       };
+  //       const response = await axios.get(API_URL + "/user", config);
+  //       setName(response.data.name);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getUser();
+  // }, [roleId, accessToken]);
 
   // Include the access token in the request header
   const handleSubmit = (e) => {
@@ -125,11 +126,7 @@ function UpdateProfile() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const accessToken = document.cookie.replace(
-          // eslint-disable-next-line
-          /(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/,
-          "$1"
-        );
+        
         const config = {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -137,13 +134,14 @@ function UpdateProfile() {
         };
         const response = await axios.get(API_URL + "/user", config);
         setEmail(response.data.email);
+        setName(response.data.name);
         // setRole(response.data.role);
       } catch (error) {
         console.log(error);
       }
     };
     getUser();
-  }, []);
+  }, [accessToken, roleId]);
 
   return (
     <div className="col-md-6 ">
@@ -166,7 +164,7 @@ function UpdateProfile() {
           <form
             className="form-label-left "
             onSubmit={handleSubmit}
-            autocomplete="off"
+            autoComplete="off"
           >
             <div className="form-group row">
               <div className="col-md-12">
@@ -231,6 +229,7 @@ function UpdateProfile() {
                     } has-feedback-left`}
                     style={{ padding: "3px 50px", fontSize: "14px" }}
                   />
+                  
                   <span className="fa fa-picture-o form-control-feedback left"></span>
                 </div>
                 {profileError && (

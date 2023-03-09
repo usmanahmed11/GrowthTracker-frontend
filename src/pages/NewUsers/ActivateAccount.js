@@ -39,6 +39,7 @@ const ActivateAccount = (props) => {
       setPasswordConfirmationError(
         "Password and Confirm-Password do not match"
       );
+      return;
     }
     if (!password || !passwordConfirmation) {
       return;
@@ -65,16 +66,32 @@ const ActivateAccount = (props) => {
           }
         })
         .catch((error) => {
-          toast.error(error.response.data.error, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
+          const errors = error.response.data.error;
+          if (Array.isArray(errors)) {
+            errors.map((errorMessage) => {
+              return toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
+            });
+          } else {
+            toast.error(errors, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
         });
     } catch (err) {
       toast.error(err.response.data.error, {
@@ -90,51 +107,90 @@ const ActivateAccount = (props) => {
     }
   };
   return (
-    <div className="login">
-      <div className="login_wrapper">
-        <div className="animate form login_form">
-          <form onSubmit={handleSubmit}>
-            <h1>Set New Password</h1>
-            <div
-              className={passwordError ? "form-group has-error" : "form-group"}
-            >
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className={
-                  passwordError ? "form-control is-invalid" : "form-control"
-                }
-                placeholder="Password"
-              />
-              {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
+    <div className="login2">
+      <div className="container" style={{ overflowX: "hidden" }}>
+        <div className="row justify-content-center">
+          <div className="col-lg-4 col-md-6 col-sm-8">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <div className="text-center">
+                  <img
+                    src="/images/growth-tracker.png"
+                    alt="Logo"
+                    height="72"
+                  />
+                </div>
+                <h6 className="card-title text-center mb-4">
+                  Set New Password
+                </h6>
+                <form onSubmit={handleSubmit}>
+                  <div
+                    className={
+                      passwordError ? "form-group has-error" : "form-group"
+                    }
+                  >
+                    <div className="input-group">
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        className={
+                          passwordError
+                            ? "form-control is-invalid"
+                            : "form-control"
+                        }
+                        placeholder="Password"
+                      />
+                      <div className="input-group-append">
+                        <span className="input-group-text">
+                          <i className="fa fa-key" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                    {passwordError && (
+                      <p style={{ color: "red" }}>{passwordError}</p>
+                    )}
+                  </div>
+                  <div
+                    className={
+                      passwordConfirmationError
+                        ? "form-group has-error"
+                        : "form-group"
+                    }
+                  >
+                    <div className="input-group">
+                      <input
+                        type="password"
+                        id="passwordConfirmation"
+                        name="passwordConfirmation"
+                        className={
+                          passwordConfirmationError
+                            ? "form-control is-invalid"
+                            : "form-control"
+                        }
+                        placeholder="Confirm Password"
+                      />
+                      <div className="input-group-append">
+                        <span className="input-group-text">
+                          <i className="fa fa-key" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                    {passwordConfirmationError && (
+                      <p style={{ color: "red" }}>
+                        {passwordConfirmationError}
+                      </p>
+                    )}
+                  </div>
+                  <div className="form-group text-align">
+                    <button type="submit" className="btn btn-primary btn-sm">
+                      Set Password
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div
-              className={
-                passwordConfirmationError
-                  ? "form-group has-error"
-                  : "form-group"
-              }
-            >
-              <input
-                type="password"
-                id="passwordConfirmation"
-                name="passwordConfirmation"
-                className={
-                  passwordConfirmationError
-                    ? "form-control is-invalid"
-                    : "form-control"
-                }
-                placeholder="Confirm Password"
-              />
-              {passwordConfirmationError && (
-                <p style={{ color: "red" }}>{passwordConfirmationError}</p>
-              )}
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Set Password
-            </button>
-          </form>
+          </div>
         </div>
       </div>
       <ToastContainer />

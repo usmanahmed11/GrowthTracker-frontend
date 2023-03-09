@@ -95,16 +95,32 @@ const ChangePassword = (props) => {
           }
         })
         .catch((error) => {
-          toast.error(error.response.data.error, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
+          const errors = error.response.data.error;
+          if (Array.isArray(errors)) {
+            errors.map((errorMessage) => {
+              return toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
+            });
+          } else {
+            toast.error(errors, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
         });
     } catch (error) {
       toast.error(error.response.data.error, {
@@ -126,11 +142,7 @@ const ChangePassword = (props) => {
         <div className="x_title">
           <div className="back-button">
             <Link to="/dashboard">
-              <i
-               className="fa fa-arrow-left arrow"
-                aria-hidden="true"
-                
-              ></i>
+              <i className="fa fa-arrow-left arrow" aria-hidden="true"></i>
             </Link>
             <br />
             <span style={{ fontSize: "21px", color: "#73879c" }}>

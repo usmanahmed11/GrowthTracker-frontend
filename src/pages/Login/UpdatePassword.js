@@ -37,6 +37,7 @@ const UpdatePassword = (props) => {
       setPasswordConfirmationError(
         "Password and Confirm-Password do not match"
       );
+      return;
     }
     if (!password || !passwordConfirmation) {
       return;
@@ -64,16 +65,32 @@ const UpdatePassword = (props) => {
           }
         })
         .catch((error) => {
-          toast.error(error.response.data.error, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
+          const errors = error.response.data.error;
+          if (Array.isArray(errors)) {
+            errors.map((errorMessage) => {
+              return toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
+            });
+          } else {
+            toast.error(errors, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
         });
     } catch (err) {
       toast.error(err.response.data.error, {
