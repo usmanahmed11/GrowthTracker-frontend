@@ -611,7 +611,7 @@ const GrowthForm = () => {
                                 onChange={(e) =>
                                   handleCandidateInfoChange(e, index)
                                 }
-                                placeholder="Experience"
+                                placeholder="Experience in years"
                                 className={`form-control ${
                                   candidateError[index]?.experience
                                     ? "is-invalid"

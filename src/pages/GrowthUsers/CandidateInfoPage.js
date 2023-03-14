@@ -94,7 +94,7 @@ const CandidateInfoPage = () => {
                             <thead>
                               <tr>
                                 <th>Name</th>
-                                <th>Experience</th>
+                                <th>Experience(years)</th>
                                 <th>Skill Set</th>
                                 <th>Job Title</th>
                                 <th>Team</th>
