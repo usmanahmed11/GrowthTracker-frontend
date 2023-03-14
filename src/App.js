@@ -18,6 +18,7 @@ import DashboardComponents from "./pages/Home/DashboardComponents";
 import EmailForm from "./pages/EmailConfiguration/EmailForm";
 import CandidateInfoPage from "./pages/GrowthUsers/CandidateInfoPage";
 import { Redirect } from "react-router-dom";
+import showCandidateInfo from "./components/showCandidateInfo";
 
 function App() {
   const roleId = document.cookie.replace(
@@ -78,6 +79,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/login" component={Login} />
+        {/* <Route path="/candidate" component={showCandidateInfo} /> */}
         <Route path="/" exact component={Login} />
         <Route path="/change-password" exact component={ChangePassword} />
         <Route path="/dashboard" exact component={DashboardComponents} />

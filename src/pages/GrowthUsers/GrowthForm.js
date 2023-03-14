@@ -10,6 +10,8 @@ import { Button, Modal } from "react-bootstrap";
 import Chips from "react-chips/lib/Chips";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ShowCandidateInfo from "../../components/showCandidateInfo";
+
 const GrowthForm = () => {
   const [jobTitles, setJobTitles] = useState([]);
   const [team, setTeam] = useState([]);
@@ -18,6 +20,8 @@ const GrowthForm = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [skillSet, setSkillSet] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
   const [growthData, setGrowthData] = useState({
     title: "",
     
@@ -277,6 +281,7 @@ const GrowthForm = () => {
     }
     // Adds the 'Sent' status to the growthData object
     const growthDataWithStatus = { ...growthData, status: Sent };
+    console.log(growthDataWithStatus, 'Usman');
 
     // Sends a post request to the API with the growthData object
     try {
@@ -372,6 +377,7 @@ const GrowthForm = () => {
 
   const handleClose = () => {
     setShow(false);
+    setLoading(false);
   };
 
   return (
@@ -386,91 +392,8 @@ const GrowthForm = () => {
           <Modal.Title>Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="col-md-6 mx-auto">
-            <div className="x_content">
-              <div className="form-group row">
-                <label className="col-md-6 col-form-label">
-                  <span style={{ color: "red" }}>*</span> To:
-                </label>
-                <div className="col-md-10">
-                  <div className="has-feedback my-colorClass">
-                    <Chips value={to} className={"form-control "} />
-                  </div>
-                </div>
-              </div>
-              <div className="form-group row">
-                <label className="col-md-6 col-form-label">CC:</label>
-                <div className="col-md-10">
-                  <div className="has-feedback my-colorClass">
-                    <Chips value={cc} className={"form-control"} />
-                  </div>
-                </div>
-              </div>
-              <div className="form-group row">
-                <label className="col-md-6 col-form-label">BCC:</label>
-                <div className="col-md-10">
-                  <div className="has-feedback my-colorClass">
-                    <Chips value={bcc} className={"form-control"} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-group row">
-                <label className="col-md-6 col-form-label">
-                  <span style={{ color: "red" }}>*</span>
-                  Subject:
-                </label>
-
-                <div className="col-md-10">
-                  <div
-                    className="has-feedback my-colorClass"
-                    style={{ position: "relative" }}
-                  >
-                    <input value={subject} className="form-control" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 mx-auto">
-            <div>
-              <div>
-                <div className="form-group row">
-                  <label className="col-md-6 col-form-label">
-                    <span style={{ color: "red" }}>*</span>
-                    Greetings:
-                  </label>
-                  <div className="col-md-12 ckeditor-container">
-                    <div className="has-feedback my-colorClass">
-                      <CKEditor
-                        className={"form-control"}
-                        editor={ClassicEditor}
-                        disabled={ClassicEditor}
-                        data={greetings}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="form-group row">
-                  <label className="col-md-6 col-form-label">
-                    <span style={{ color: "red" }}>*</span>
-                    Signature:
-                  </label>
-                  <div className="col-md-12 ">
-                    <div className="has-feedback my-colorClass">
-                      <CKEditor
-                        className={"form-control"}
-                        editor={ClassicEditor}
-                        disabled={ClassicEditor}
-                        data={signature}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        
+          <ShowCandidateInfo growthData={growthData} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
