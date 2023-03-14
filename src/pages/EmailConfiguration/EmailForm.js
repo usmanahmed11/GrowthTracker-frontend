@@ -21,7 +21,7 @@ function EmailForm() {
   const [subject, setSubject] = useState("");
   const [isReset, setIsReset] = useState(false);
   const [loading, setLoading] = useState(false);
-  const DEFAULT_SUBJECT = "End of Day Report - {{date:dddd DD MMM, YYYY}}";
+  const DEFAULT_SUBJECT = "NB Growth Status as on - {{date:dddd DD MMM, YYYY}}";
 
   useEffect(() => {
     axios
@@ -152,7 +152,7 @@ function EmailForm() {
                         <label className="col-md-6 col-form-label">
                           <span style={{ color: "red" }}>*</span> To:
                         </label>
-                        <div className="col-md-10">
+                        <div className="col-md-11">
                           <div className="has-feedback my-colorClass">
                             <Chips
                               value={to}
@@ -172,7 +172,7 @@ function EmailForm() {
                       </div>
                       <div className="form-group row">
                         <label className="col-md-6 col-form-label">CC:</label>
-                        <div className="col-md-10">
+                        <div className="col-md-11">
                           <div className="has-feedback my-colorClass">
                             <Chips
                               value={cc || []}
@@ -186,7 +186,7 @@ function EmailForm() {
                       </div>
                       <div className="form-group row">
                         <label className="col-md-6 col-form-label">BCC:</label>
-                        <div className="col-md-10">
+                        <div className="col-md-11">
                           <div className="has-feedback my-colorClass">
                             <Chips
                               value={bcc || []}
@@ -205,7 +205,7 @@ function EmailForm() {
                           Subject:
                         </label>
 
-                        <div className="col-md-10">
+                        <div className="col-md-11">
                           <div
                             className="has-feedback my-colorClass"
                             style={{ position: "relative" }}
@@ -272,8 +272,34 @@ function EmailForm() {
                             )}
                           </div>
                         </div>
-
                         <div className="form-group row">
+                          <label className="col-md-6 col-form-label">
+                            <span style={{ color: "red" }}>*</span>
+                            Signature:
+                          </label>
+                          <div className="col-md-12 ckeditor-container">
+                            <div className="has-feedback my-colorClass">
+                              <CKEditor
+                                className={`form-control ${
+                                  signatureError ? "is-invalid" : ""
+                                } has-feedback-left`}
+                                editor={ClassicEditor}
+                                data={signature}
+                                onChange={(event, editor) => {
+                                  const data = editor.getData();
+                                  setSignature(data);
+                                }}
+                              />
+                            </div>
+                            {signatureError && (
+                              <div className="invalid-feedback d-block">
+                                <p style={{ color: "red" }}>{signatureError}</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* <div className="form-group row">
                           <label className="col-md-6 col-form-label">
                             <span style={{ color: "red" }}>*</span>
                             Signature:
@@ -298,7 +324,7 @@ function EmailForm() {
                               </div>
                             )}
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

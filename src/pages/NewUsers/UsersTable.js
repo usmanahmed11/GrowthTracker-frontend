@@ -146,7 +146,7 @@ const UsersTable = () => {
       console.error(error);
     }
   };
-  
+
   useEffect(() => {
     const storedTexts = {};
     users.forEach((user) => {
@@ -161,7 +161,7 @@ const UsersTable = () => {
   }, [users]);
 
   return (
-    <div className="nav-md">
+    <div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Confirmation</Modal.Title>
@@ -187,10 +187,8 @@ const UsersTable = () => {
           <div className="my-padding">
             {/* <!-- page content --> */}
 
-            <div className="right_col" role="main">
-              <div className="page-title">
-                <div className="clearfix"></div>
-
+            <div>
+              <div>
                 <div>
                   <div className="col-md-12 col-sm-12 ">
                     <div className="x_panel">

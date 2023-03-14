@@ -114,11 +114,11 @@ const UpdatePassword = (props) => {
             <div className="card shadow-lg">
               <div className="card-body">
                 <div className="text-center">
-                  <img
+                  {/* <img
                     src="/images/growth-tracker.png"
                     alt="Logo"
                     height="72"
-                  />
+                  /> */}
                 </div>
                 <h6 className="card-title text-center mb-4">Reset Password</h6>
                 <form onSubmit={handleSubmit}>

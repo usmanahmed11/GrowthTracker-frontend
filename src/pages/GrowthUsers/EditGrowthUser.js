@@ -29,6 +29,7 @@ const EditGrowthUser = () => {
   const [signature, setSignature] = useState("");
   const [subject, setSubject] = useState("");
   const [candidateInfo, setCandidateInfo] = useState([]);
+  // const [titleId, setTitleId] = useState(null);
   const [growthData, setGrowthData] = useState({
     title: "",
    
@@ -263,8 +264,7 @@ const EditGrowthUser = () => {
       setLoading(false);
       return;
     }
-    const growthDataWithStatus = { ...growthData, status: Sent };
-    console.log(growthData);
+    const growthDataWithStatus = { ...growthData, status: Sent  };
     try {
       axios
         .post(API_URL + `/growth/${id}`, growthDataWithStatus)
@@ -493,6 +493,7 @@ const EditGrowthUser = () => {
                     onSubmit={handleSubmit}
                     className="input_mask"
                     autocomplete="off"
+                    
                   >
                     <div className="form-group row">
                       <div className="col-md-12">
@@ -520,7 +521,7 @@ const EditGrowthUser = () => {
                         )}
                       </div>
                     </div>
-
+                    
                     <div className="x_title">
                       <h2>Candidate Info</h2>
                       <div className="clearfix"></div>
@@ -816,7 +817,7 @@ const EditGrowthUser = () => {
                         </div>
                       </div>
                     ))}
-                    {/* <div className="d-flex justify-content-end">
+                    <div className="d-flex justify-content-end">
                       <button
                         className="btn btn-primary btn-sm"
                         type="button"
@@ -835,6 +836,7 @@ const EditGrowthUser = () => {
                                 joiningDate: "",
                                 status: "",
                                 showDeleteButton: true,
+                                id: id
                               },
                             ],
                           })
@@ -842,7 +844,7 @@ const EditGrowthUser = () => {
                       >
                         <i className="fa fa-plus "></i>
                       </button>
-                    </div> */}
+                    </div>
                     <br />
 
                     <div className="col-md-5 form-group d-flex justify-content-start">

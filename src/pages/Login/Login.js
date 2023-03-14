@@ -89,11 +89,11 @@ function Login(props) {
             <div className="card shadow-lg">
               <div className="card-body">
                 <div className="text-center">
-                  <img
+                  {/* <img
                     src="/images/growth-tracker.png"
                     alt="Logo"
                     height="72"
-                  />
+                  /> */}
                 </div>
                 <h5 className="card-title text-center mb-4">Log in</h5>
                 <form onSubmit={handleSubmit} autoComplete="off">

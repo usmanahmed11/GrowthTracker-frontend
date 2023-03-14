@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useCallback } from "react";
 import API_URL from "../config";
+import API_URL2 from "../config2";
 
 const TopNavigation = ({ handleSettingsClick, handleDashboardClick }) => {
   const history = useHistory();
@@ -94,9 +95,10 @@ const TopNavigation = ({ handleSettingsClick, handleDashboardClick }) => {
                   aria-expanded="false"
                 >
                   <img
-                    src={`http://localhost:8000/profile_pictures/${profilePicture}`}
+                    src={`${API_URL2}/storage/profile_pictures/${profilePicture}`}
                     alt=""
                   />
+
                   {name}
                 </a>
                 <div
