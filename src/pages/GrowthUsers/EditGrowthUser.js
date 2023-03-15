@@ -25,7 +25,7 @@ const EditGrowthUser = () => {
   // const [titleId, setTitleId] = useState(null);
   const [growthData, setGrowthData] = useState({
     title: "",
-   
+
     candidateInfo: [
       {
         name: "",
@@ -36,13 +36,13 @@ const EditGrowthUser = () => {
         location: "",
         joiningDate: "",
         status: "",
-        showDeleteButton: false,
+        showDeleteButton: true,
       },
     ],
   });
   // use the useParams hook to get the id from the URL
   const { id } = useParams();
-  
+
   useEffect(() => {
     axios
       .get(API_URL + "/team")
@@ -104,10 +104,9 @@ const EditGrowthUser = () => {
       .get(API_URL + `/showGrowth/${id}`)
       .then((response) => response.data.growth)
       .then((data) => {
-        
         setGrowthData({
           title: data.title,
-          
+
           buttonStatus: data.status,
           candidateInfo: data.candidate_info.map((candidate) => ({
             ...candidate,
@@ -243,7 +242,7 @@ const EditGrowthUser = () => {
       setLoading(false);
       return;
     }
-    const growthDataWithStatus = { ...growthData, status: Sent  };
+    const growthDataWithStatus = { ...growthData, status: Sent };
     try {
       axios
         .post(API_URL + `/growth/${id}`, growthDataWithStatus)
@@ -306,14 +305,25 @@ const EditGrowthUser = () => {
     }
     setGrowthData({ ...growthData, candidateInfo: newCandidateInfo });
   };
-  const handleDeleteCandidateInfo = (index) => {
+  const handleDeleteCandidateInfo = async (index) => {
     const candidateInfoCopy = [...growthData.candidateInfo];
+    const candidateToDelete = candidateInfoCopy[index];
     candidateInfoCopy.splice(index, 1);
     setGrowthData({
       ...growthData,
       candidateInfo: candidateInfoCopy,
     });
+
+    try {
+      const response = await axios.delete(
+        API_URL + `/growthcandidates/${candidateToDelete.id}`
+      );
+      console.log(response.data.message); // logs "Candidate deleted successfully"
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const handleClose = () => {
     setShow(false);
     setLoading(false);
@@ -327,10 +337,10 @@ const EditGrowthUser = () => {
         candidateInfo={candidateinfo}
       >
         <Modal.Header>
-          <Modal.Title>Confirmation</Modal.Title>
+          <Modal.Title>{growthData.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-           <ShowCandidateInfo growthData={growthData} />
+          <ShowCandidateInfo growthData={growthData} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
@@ -361,7 +371,6 @@ const EditGrowthUser = () => {
                       <i
                         className="fa fa-arrow-left arrow"
                         aria-hidden="true"
-                     
                       ></i>
                     </Link>
                     <br />
@@ -389,7 +398,6 @@ const EditGrowthUser = () => {
                     onSubmit={handleSubmit}
                     className="input_mask"
                     autoComplete="off"
-                    
                   >
                     <div className="form-group row">
                       <div className="col-md-12">
@@ -417,7 +425,7 @@ const EditGrowthUser = () => {
                         )}
                       </div>
                     </div>
-                    
+
                     <div className="x_title">
                       <h2>Candidate Info</h2>
                       <div className="clearfix"></div>
@@ -427,13 +435,14 @@ const EditGrowthUser = () => {
                       <div key={index}>
                         {index > 0 && <hr />}
 
-                        {candidate.showDeleteButton && (
+                        {growthData.buttonStatus === "Draft" && (
                           <button
-                            className=" fa fa-times btn-danger float-right btn-sm"
+                            className="fa fa-times btn-danger float-right btn-sm"
                             type="button"
                             onClick={() => handleDeleteCandidateInfo(index)}
                           />
                         )}
+
                         <div className="clearfix"></div>
 
                         <div className="form-group row">
@@ -732,7 +741,7 @@ const EditGrowthUser = () => {
                                 joiningDate: "",
                                 status: "",
                                 showDeleteButton: true,
-                                id: id
+                                id: id,
                               },
                             ],
                           })

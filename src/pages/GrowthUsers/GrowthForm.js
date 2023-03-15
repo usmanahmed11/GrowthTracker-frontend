@@ -364,7 +364,7 @@ const GrowthForm = () => {
         candidateInfo={candidateinfo}
       >
         <Modal.Header>
-          <Modal.Title>Confirmation</Modal.Title>
+          <Modal.Title>{growthData.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         

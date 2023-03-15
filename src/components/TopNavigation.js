@@ -84,6 +84,7 @@ const TopNavigation = ({ handleSettingsClick, handleDashboardClick }) => {
                   src="/images/growth-tracker.png"
                   alt=""
                   className="m-lg-n4 my-custommargin"
+                  style={{ width: '150px' }}
                 />
               </Link>
               <li className="nav-item dropdown open">

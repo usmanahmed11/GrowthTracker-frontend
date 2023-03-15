@@ -3,6 +3,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import API_URL from "../../config";
+import { Link } from "react-router-dom";
 const ActivateAccount = (props) => {
   const [token, setToken] = useState("");
 
@@ -188,6 +189,12 @@ const ActivateAccount = (props) => {
                     </button>
                   </div>
                 </form>
+                <div className="separator">
+                  <p className="change_link">
+                  Do you want to log in to your account?
+                    <Link to="/login"> Log in </Link>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

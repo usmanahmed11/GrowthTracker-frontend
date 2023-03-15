@@ -6,13 +6,20 @@ import TopNavigation from "../../components/TopNavigation";
 import moment from "moment";
 import API_URL from "../../config";
 import { Link } from "react-router-dom";
-
+import { Button, Modal } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import ShowCandidateInfo2 from "../../components/showCandidateInfo2";
 const CandidateInfoPage = () => {
   const [candidateInfo, setCandidateInfo] = useState(null);
   const [title, setTitle] = useState("");
   const [createdAt, setCreatedAt] = useState("");
   const [status, setStatus] = useState("");
+  const [show, setShow] = useState(false);
   const { titleId } = useParams();
+
+  const handleClose = () => {
+    setShow(false);
+  };
 
   useEffect(() => {
     const handleViewClick = async (titleId, page) => {
@@ -45,9 +52,95 @@ const CandidateInfoPage = () => {
     };
     handleViewClick(titleId);
   }, [titleId]);
+  const handleModal = (e) => {
+    setShow(true);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Modify candidateInfo array to send skillSet as an array
+    const updatedCandidateInfo = candidateInfo.candidates.map((candidate) => {
+      const skillSetArray = candidate.skillSet.split(","); // Split skillSet string into an array
+      return { ...candidate, skillSet: skillSetArray };
+    });
+
+
+    try {
+      axios
+        .post(API_URL + `/growth/${titleId}`, {
+          candidateInfo: updatedCandidateInfo,
+          title: title,
+          status: "Sent",
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success(response.data.message, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
+        })
+        .catch((error) => {
+          toast.error(error.response.data.error, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    } catch (error) {
+      toast.error(error.response.data.error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
 
   return (
     <div className="nav-md">
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="lg"
+        candidateInfo={candidateInfo}
+      >
+        <Modal.Header>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ShowCandidateInfo2 growthData={candidateInfo?.candidates} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}  className="btn btn-primary btn-sm">
+            Close
+          </Button>
+          <Button
+            type="submit"
+            className="btn btn-success btn-sm"
+            onClick={(e) => {
+              handleSubmit(e, "Sent");
+            }}
+          >
+            Send
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <TopNavigation />
 
       <div className="container ">
@@ -57,24 +150,51 @@ const CandidateInfoPage = () => {
               <div className="x_panel">
                 <div className="x_title d-flex align-items-center justify-content-between">
                   <div className="title-container">
-                  <div className="back-button">
-                      <Link to='/dashboard'>
+                    <div className="back-button">
+                      <Link to="/dashboard">
                         <i
-                         className="fa fa-arrow-left arrow"
+                          className="fa fa-arrow-left arrow"
                           aria-hidden="true"
-                         
                         ></i>
                       </Link>
                       <br />
                       <span style={{ fontSize: "21px", color: "#73879c" }}>
-                       {title}
+                        {title}
                       </span>
                     </div>
                   </div>
                   <div className="info-container d-flex align-items-center">
+                    {status === "Draft" && (
+                      <Button
+                        type="submit"
+                        className="btn btn-success btn-sm"
+                        onClick={(e) => {
+                          handleModal(e);
+                        }}
+                      >
+                        Send
+                      </Button>
+                    )}
                     <label>Status:</label>
                     <span style={{ margin: "2px" }}></span>
-                    <h6>{status}</h6>
+                    <h6>
+                      {status === "Sent" ? (
+                        <span
+                          className="badge badge-success"
+                          style={{ color: "white" }}
+                        >
+                          Sent
+                        </span>
+                      ) : (
+                        <span
+                          className="badge badge-secondary"
+                          style={{ color: "white" }}
+                        >
+                          Draft
+                        </span>
+                      )}
+                    </h6>
+
                     <span style={{ margin: "8px" }}></span>
                     <label>Created At:</label>
                     <span style={{ margin: "2px" }}></span>
@@ -138,6 +258,7 @@ const CandidateInfoPage = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

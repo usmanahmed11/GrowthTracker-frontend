@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
 
-const ShowCandidateInfo = ({ growthData }) => {
+const ShowCandidateInfo2 = ({ growthData }) => {
   const [to, setTo] = useState([]);
   const [cc, setCc] = useState([]);
   const [bcc, setBcc] = useState([]);
@@ -60,7 +60,6 @@ const ShowCandidateInfo = ({ growthData }) => {
                 margin: 0,
               }}
             >
-              
               <td
                 style={{
                   fontFamily: "Helvetica, 'Open Sans', Arial",
@@ -226,27 +225,23 @@ const ShowCandidateInfo = ({ growthData }) => {
                                     </thead>
 
                                     <tbody>
-                                      {growthData.candidateInfo.map(
-                                        (candidate, index) => (
-                                          <tr key={index}>
-                                            <td>{candidate.name}</td>
-                                            <td>{candidate.experience}</td>
-                                            <td>
-                                              {candidate.skillSet.join(", ")}
-                                            </td>
-                                            <td>{candidate.jobTitle}</td>
-                                            <td>{candidate.team}</td>
-                                            <td>{candidate.location}</td>
-                                            <td>
-                                              {moment(
-                                                candidate.joiningDate
-                                              ).format("MMMM DD, YYYY")}
-                                            </td>
+                                      {growthData.map((candidate, index) => (
+                                        <tr key={index}>
+                                          <td>{candidate.name}</td>
+                                          <td>{candidate.experience}</td>
+                                          <td>{candidate.skillSet}</td>
+                                          <td>{candidate.jobTitle}</td>
+                                          <td>{candidate.team}</td>
+                                          <td>{candidate.location}</td>
+                                          <td>
+                                            {moment(
+                                              candidate.joiningDate
+                                            ).format("MMMM DD, YYYY")}
+                                          </td>
 
-                                            <td>{candidate.status}</td>
-                                          </tr>
-                                        )
-                                      )}
+                                          <td>{candidate.status}</td>
+                                        </tr>
+                                      ))}
                                     </tbody>
                                   </table>
                                 </td>
@@ -290,4 +285,4 @@ const ShowCandidateInfo = ({ growthData }) => {
     </React.Fragment>
   );
 };
-export default ShowCandidateInfo;
+export default ShowCandidateInfo2;

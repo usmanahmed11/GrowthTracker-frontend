@@ -3,6 +3,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import API_URL from "../../config";
+import { Link } from "react-router-dom";
 const UpdatePassword = (props) => {
   const [token, setToken] = useState("");
   const [passwordError, setPasswordError] = useState(null);
@@ -114,11 +115,7 @@ const UpdatePassword = (props) => {
             <div className="card shadow-lg">
               <div className="card-body">
                 <div className="text-center">
-                  {/* <img
-                    src="/images/growth-tracker.png"
-                    alt="Logo"
-                    height="72"
-                  /> */}
+                  
                 </div>
                 <h6 className="card-title text-center mb-4">Reset Password</h6>
                 <form onSubmit={handleSubmit}>
@@ -187,6 +184,12 @@ const UpdatePassword = (props) => {
                     </button>
                   </div>
                 </form>
+                <div className="separator">
+                  <p className="change_link">
+                    Wanna Go Back?
+                    <Link to="/login"> Log in </Link>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
