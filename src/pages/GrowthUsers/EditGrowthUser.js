@@ -21,7 +21,7 @@ const EditGrowthUser = () => {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [candidateInfo, setCandidateInfo] = useState([]);
+  const [candidateinfo, setCandidateInfo] = useState([]);
   // const [titleId, setTitleId] = useState(null);
   const [growthData, setGrowthData] = useState({
     title: "",
@@ -104,7 +104,7 @@ const EditGrowthUser = () => {
       .get(API_URL + `/showGrowth/${id}`)
       .then((response) => response.data.growth)
       .then((data) => {
-        console.log(data);
+        
         setGrowthData({
           title: data.title,
           
@@ -324,7 +324,7 @@ const EditGrowthUser = () => {
         show={show}
         onHide={handleClose}
         size="lg"
-        candidateInfo={candidateInfo}
+        candidateInfo={candidateinfo}
       >
         <Modal.Header>
           <Modal.Title>Confirmation</Modal.Title>
@@ -388,7 +388,7 @@ const EditGrowthUser = () => {
                   <form
                     onSubmit={handleSubmit}
                     className="input_mask"
-                    autocomplete="off"
+                    autoComplete="off"
                     
                   >
                     <div className="form-group row">

@@ -37,7 +37,7 @@ const GrowthForm = () => {
   });
   const [titleError, setTitleError] = useState(null);
   const [candidateError, setCandidateError] = useState([]);
-  const [candidateInfo, setCandidateInfo] = useState([]);
+  const [candidateinfo, setCandidateInfo] = useState([]);
 
   // The useEffect hook gets email configuration data from the API and
   // updates state variables using setTo(), setCc(), setBcc(), setSubject(), setGreetings() and setSignature()
@@ -257,7 +257,6 @@ const GrowthForm = () => {
     }
     // Adds the 'Sent' status to the growthData object
     const growthDataWithStatus = { ...growthData, status: Sent };
-    console.log(growthDataWithStatus, 'Usman');
 
     // Sends a post request to the API with the growthData object
     try {
@@ -362,7 +361,7 @@ const GrowthForm = () => {
         show={show}
         onHide={handleClose}
         size="lg"
-        candidateInfo={candidateInfo}
+        candidateInfo={candidateinfo}
       >
         <Modal.Header>
           <Modal.Title>Confirmation</Modal.Title>
