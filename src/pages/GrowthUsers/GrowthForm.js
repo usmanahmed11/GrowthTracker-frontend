@@ -7,9 +7,6 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import API_URL from "../../config";
 import { Button, Modal } from "react-bootstrap";
-import Chips from "react-chips/lib/Chips";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ShowCandidateInfo from "../../components/showCandidateInfo";
 
 const GrowthForm = () => {
@@ -20,7 +17,6 @@ const GrowthForm = () => {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [skillSet, setSkillSet] = useState([]);
-  const [tableData, setTableData] = useState([]);
 
   const [growthData, setGrowthData] = useState({
     title: "",
@@ -41,12 +37,6 @@ const GrowthForm = () => {
   });
   const [titleError, setTitleError] = useState(null);
   const [candidateError, setCandidateError] = useState([]);
-  const [to, setTo] = useState([]);
-  const [cc, setCc] = useState([]);
-  const [bcc, setBcc] = useState([]);
-  const [greetings, setGreetings] = useState("");
-  const [signature, setSignature] = useState("");
-  const [subject, setSubject] = useState("");
   const [candidateInfo, setCandidateInfo] = useState([]);
 
   // The useEffect hook gets email configuration data from the API and
@@ -54,21 +44,7 @@ const GrowthForm = () => {
   // functions provided by React's useState hook.
   // It takes an empty array [] as the second argument to only run once, when the component mounts.
 
-  useEffect(() => {
-    axios
-      .get(API_URL + "/email-config")
-      .then((response) => {
-        setTo(response.data.to);
-        setCc(response.data.cc);
-        setBcc(response.data.bcc);
-        setSubject(response.data.subject);
-        setGreetings(response.data.greetings);
-        setSignature(response.data.signature);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+ 
 
   // The useEffect hook gets team data from the API and updates the team state variable using setTeam()
   // function provided by React's useState hook.
@@ -407,7 +383,7 @@ const GrowthForm = () => {
               setShow(false);
             }}
           >
-            Submit
+            Send
           </Button>
         </Modal.Footer>
       </Modal>

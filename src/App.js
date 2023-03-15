@@ -18,7 +18,6 @@ import DashboardComponents from "./pages/Home/DashboardComponents";
 import EmailForm from "./pages/EmailConfiguration/EmailForm";
 import CandidateInfoPage from "./pages/GrowthUsers/CandidateInfoPage";
 import { Redirect } from "react-router-dom";
-import showCandidateInfo from "./components/showCandidateInfo";
 
 function App() {
   const roleId = document.cookie.replace(

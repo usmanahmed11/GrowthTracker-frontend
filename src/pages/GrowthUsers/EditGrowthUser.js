@@ -9,9 +9,7 @@ import Select from "react-select";
 import API_URL from "../../config";
 import ShowCandidateInfo from "../../components/showCandidateInfo";
 import { Button, Modal } from "react-bootstrap";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import Chips from "react-chips/lib/Chips";
+
 const EditGrowthUser = () => {
   const [jobTitles, setJobTitles] = useState([]);
   const [team, setTeam] = useState([]);
@@ -23,12 +21,6 @@ const EditGrowthUser = () => {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [to, setTo] = useState([]);
-  const [cc, setCc] = useState([]);
-  const [bcc, setBcc] = useState([]);
-  const [greetings, setGreetings] = useState("");
-  const [signature, setSignature] = useState("");
-  const [subject, setSubject] = useState("");
   const [candidateInfo, setCandidateInfo] = useState([]);
   // const [titleId, setTitleId] = useState(null);
   const [growthData, setGrowthData] = useState({
@@ -50,21 +42,7 @@ const EditGrowthUser = () => {
   });
   // use the useParams hook to get the id from the URL
   const { id } = useParams();
-  useEffect(() => {
-    axios
-      .get(API_URL + "/email-config")
-      .then((response) => {
-        setTo(response.data.to);
-        setCc(response.data.cc);
-        setBcc(response.data.bcc);
-        setSubject(response.data.subject);
-        setGreetings(response.data.greetings);
-        setSignature(response.data.signature);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  
   useEffect(() => {
     axios
       .get(API_URL + "/team")
@@ -366,7 +344,7 @@ const EditGrowthUser = () => {
               setShow(false);
             }}
           >
-            Submit
+            Send
           </Button>
         </Modal.Footer>
       </Modal>

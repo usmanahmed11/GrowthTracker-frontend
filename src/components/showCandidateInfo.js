@@ -2,9 +2,7 @@ import React from "react";
 import API_URL from "../config";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Chips from "react-chips/lib/Chips";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import moment from "moment";
 
 const ShowCandidateInfo = ({ growthData }) => {
   const [to, setTo] = useState([]);
@@ -33,11 +31,7 @@ const ShowCandidateInfo = ({ growthData }) => {
   return (
     <React.Fragment>
       <div style={{ background: "#f6f6f6" }}>
-        <div style={{ paddingLeft: 30 }}>
-          <p> To: {to.join(", ")}</p>
-          <p> {cc.join(", ") ? <p>Cc: {cc.join(", ")}</p> : ""}</p>
-          <p> {bcc.join(", ") ? <p>Bcc: {bcc.join(", ")}</p> : ""}</p>
-        </div>
+        <div style={{ paddingLeft: 30 }}></div>
 
         <table
           style={{
@@ -120,11 +114,10 @@ const ShowCandidateInfo = ({ growthData }) => {
                           style={{
                             fontFamily: "Helvetica, 'Open Sans', Arial",
                             boxSizing: "border-box",
-                            fontSize: "22px",
+                            fontSize: "15px",
                             verticalAlign: "top",
                             color: "#fff",
                             fontWeight: 500,
-                            textAlign: "center",
                             borderRadius: "3px 3px 0 0",
                             backgroundColor: "#fffefe",
                             margin: 0,
@@ -133,11 +126,26 @@ const ShowCandidateInfo = ({ growthData }) => {
                           }}
                           valign="top"
                         >
-                          <strong style={{ padding: "15px", float: "left" }}>
+                          <span style={{ float: "left" }}>
                             <span style={{ color: "#212529" }}>
-                              GrowthTracker
+                              <p style={{ paddingLeft: 18 }}><strong>To:</strong> {to.join(", ")}</p>
+                              <p style={{ paddingLeft: 18 }}>
+                                {cc.join(", ") ? (
+                                  <><strong>CC:</strong> {cc.join(", ")}</>
+                                ) : (
+                                  ""
+                                )}
+                              </p>
+
+                              <p style={{ paddingLeft: 18 }}>
+                                {bcc.join(", ") ? (
+                                  <><strong>Bcc:</strong>  {bcc.join(", ")}</>
+                                ) : (
+                                  ""
+                                )}
+                              </p>
                             </span>
-                          </strong>
+                          </span>
                         </td>
                       </tr>
                       <tr
@@ -191,17 +199,17 @@ const ShowCandidateInfo = ({ growthData }) => {
                                   }}
                                   valign="top"
                                 >
-                                  Hi ,
-                                  <br />
+                                 <p><strong>Subject:</strong> { subject } </p>
                                   <p
                                     dangerouslySetInnerHTML={{
                                       __html: greetings,
                                     }}
                                   ></p>
                                   <table
-                                    border="2"
-                                    style={{ borderCollapse: "collapse" }}
-                                  >
+                                id="datatable"
+                                className="table table-striped table-bordered"
+                                style={{ width: "100%" }}
+                              >
                                     <thead>
                                       <tr>
                                         <th>Name</th>
@@ -221,24 +229,12 @@ const ShowCandidateInfo = ({ growthData }) => {
                                           <tr key={index}>
                                             <td>{candidate.name}</td>
                                             <td>{candidate.experience}</td>
-                                            <td>
-                                              {candidate.skillSet.length >
-                                                0 && (
-                                                <ul>
-                                                  {candidate.skillSet.map(
-                                                    (skill, index) => (
-                                                      <li key={index}>
-                                                        {skill}
-                                                      </li>
-                                                    )
-                                                  )}
-                                                </ul>
-                                              )}
-                                            </td>
+                                            <td>{candidate.skillSet.join(", ")}</td>
                                             <td>{candidate.jobTitle}</td>
                                             <td>{candidate.team}</td>
                                             <td>{candidate.location}</td>
-                                            <td>{candidate.joiningDate}</td>
+                                            <td>{moment(candidate.joiningDate).format("MMMM DD, YYYY")}</td>
+
                                             <td>{candidate.status}</td>
                                           </tr>
                                         )
@@ -270,62 +266,19 @@ const ShowCandidateInfo = ({ growthData }) => {
                                   }}
                                   valign="top"
                                 >
-                                  <strong>Thanks</strong>,
-                                  <br />
-                                  <strong>GrowthTracker</strong>
+                                
                                 </td>
                               </tr>
                             </tbody>
                           </table>
                         </td>
                       </tr>
-                      <tr
-                        style={{
-                          fontFamily: "Helvetica, 'Open Sans', Arial",
-                          boxSizing: "border-box",
-                          fontSize: "12px",
-                          margin: "0",
-                        }}
-                      >
-                        <td
-                          style={{
-                            fontFamily: "Helvetica, 'Open Sans', Arial",
-                            boxSizing: "border-box",
-                            fontSize: "14px",
-                            verticalAlign: "top",
-                            color: "#000",
-                            textAlign: "center",
-                            borderTop: "1px solid #b5b9bd",
-                            margin: "0",
-                            padding: "0",
-                          }}
-                          valign="top"
-                        >
-                          <div style={{ padding: "15px" }}>
-                            <p style={{ marginBottom: "0", marginTop: "5px" }}>
-                              Please contact support@nxb.com.pk If you find any
-                              issue with growthtracker.vteamslabs.com
-                            </p>
-                            <p style={{ marginTop: "5px" }}>
-                              Copyright @2023 Nextbridge (Pvt.) Ltd.
-                            </p>
-                          </div>
-                        </td>
-                      </tr>
+                      
                     </tbody>
                   </table>
                 </div>
               </td>
-              <td
-                style={{
-                  fontFamily: "Helvetica, 'Open Sans', Arial",
-                  boxSizing: "border-box",
-                  fontSize: "12px",
-                  verticalAlign: "top",
-                  margin: "0",
-                }}
-                valign="top"
-              ></td>
+              
             </tr>
           </tbody>
         </table>
