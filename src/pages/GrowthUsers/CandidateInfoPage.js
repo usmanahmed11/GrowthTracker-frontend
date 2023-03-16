@@ -57,13 +57,12 @@ const CandidateInfoPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setShow(false);
     // Modify candidateInfo array to send skillSet as an array
     const updatedCandidateInfo = candidateInfo.candidates.map((candidate) => {
       const skillSetArray = candidate.skillSet.split(","); // Split skillSet string into an array
       return { ...candidate, skillSet: skillSetArray };
     });
-
 
     try {
       axios
@@ -127,7 +126,11 @@ const CandidateInfoPage = () => {
           <ShowCandidateInfo2 growthData={candidateInfo?.candidates} />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}  className="btn btn-primary btn-sm">
+          <Button
+            variant="primary"
+            onClick={handleClose}
+            className="btn btn-primary btn-sm"
+          >
             Close
           </Button>
           <Button
