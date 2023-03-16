@@ -116,7 +116,7 @@ const CandidateInfoPage = () => {
       <Modal
         show={show}
         onHide={handleClose}
-        size="lg"
+        size="xl"
         candidateInfo={candidateInfo}
       >
         <Modal.Header>

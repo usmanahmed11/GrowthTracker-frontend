@@ -360,7 +360,7 @@ const GrowthForm = () => {
       <Modal
         show={show}
         onHide={handleClose}
-        size="lg"
+        size="xl"
         candidateInfo={candidateinfo}
       >
         <Modal.Header>
