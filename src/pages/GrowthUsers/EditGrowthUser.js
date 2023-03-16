@@ -318,7 +318,6 @@ const EditGrowthUser = () => {
       const response = await axios.delete(
         API_URL + `/growthcandidates/${candidateToDelete.id}`
       );
-      console.log(response.data.message); // logs "Candidate deleted successfully"
     } catch (error) {
       console.error(error);
     }

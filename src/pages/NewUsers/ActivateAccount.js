@@ -14,7 +14,7 @@ const ActivateAccount = (props) => {
   useEffect(() => {
     const pathname = props.location.pathname;
     const tokenFromURL = pathname.split("/")[2];
-    console.log(tokenFromURL);
+   
     setToken(tokenFromURL);
   }, [props.location.pathname]);
 

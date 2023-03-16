@@ -12,7 +12,6 @@ const ShowCandidateInfo = ({ growthData }) => {
   const [signature, setSignature] = useState("");
   const [subject, setSubject] = useState("");
 
-  console.log(growthData);
 
   useEffect(() => {
     axios
