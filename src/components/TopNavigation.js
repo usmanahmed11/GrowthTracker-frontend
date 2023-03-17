@@ -84,11 +84,11 @@ const TopNavigation = ({ handleSettingsClick, handleDashboardClick }) => {
                   src="/images/growth-tracker.png"
                   alt=""
                   className="m-lg-n4 my-custommargin"
-                  style={{ width: '150px' }}
+                  style={{ width: "150px" }}
                 />
               </Link>
               <li className="nav-item dropdown open">
-                <a
+                <Link
                   className="user-profile dropdown-toggle"
                   aria-haspopup="true"
                   id="navbarDropdown"
@@ -101,7 +101,7 @@ const TopNavigation = ({ handleSettingsClick, handleDashboardClick }) => {
                   />
 
                   {name}
-                </a>
+                </Link>
                 <div
                   className="dropdown-menu dropdown-usermenu pull-right"
                   aria-labelledby="navbarDropdown"

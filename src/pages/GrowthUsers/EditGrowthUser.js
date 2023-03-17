@@ -315,9 +315,7 @@ const EditGrowthUser = () => {
     });
 
     try {
-      const response = await axios.delete(
-        API_URL + `/growthcandidates/${candidateToDelete.id}`
-      );
+      await axios.delete(API_URL + `/growthcandidates/${candidateToDelete.id}`);
     } catch (error) {
       console.error(error);
     }

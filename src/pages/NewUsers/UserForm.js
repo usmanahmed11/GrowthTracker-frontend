@@ -84,7 +84,7 @@ const UserForm = () => {
           }
         })
         .catch((error) => {
-          toast.error(error.response.data.error, {
+          toast.error(error.response.data.error.email[0], {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
