@@ -89,6 +89,7 @@ const TopNavigation = ({ handleSettingsClick, handleDashboardClick }) => {
               </Link>
               <li className="nav-item dropdown open">
                 <Link
+                  to="#"
                   className="user-profile dropdown-toggle"
                   aria-haspopup="true"
                   id="navbarDropdown"
