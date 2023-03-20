@@ -57,7 +57,7 @@ const CandidateInfoPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShow(false);
+   
     // Modify candidateInfo array to send skillSet as an array
     const updatedCandidateInfo = candidateInfo.candidates.map((candidate) => {
       const skillSetArray = candidate.skillSet.split(","); // Split skillSet string into an array
@@ -73,7 +73,7 @@ const CandidateInfoPage = () => {
         })
         .then((response) => {
           if (response.status === 200) {
-            toast.success(response.data.message, {
+            toast.success("Email Has Been Sent To All The Recipients Successfully", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -82,6 +82,9 @@ const CandidateInfoPage = () => {
               draggable: true,
               progress: undefined,
               theme: "colored",
+              onClose: () => {
+                window.location.reload();
+              },
             });
           }
         })

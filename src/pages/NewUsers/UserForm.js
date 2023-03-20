@@ -68,6 +68,7 @@ const UserForm = () => {
           name,
           role_id: role.id,
           password: "NB_GT_123",
+          status: "active",
         })
         .then((response) => {
           if (response.status === 200) {

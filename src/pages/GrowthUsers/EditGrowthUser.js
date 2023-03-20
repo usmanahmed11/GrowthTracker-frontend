@@ -127,6 +127,7 @@ const EditGrowthUser = () => {
         setIsLoading(false);
       });
   }, [id]);
+  console.log(growthData);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -720,32 +721,34 @@ const EditGrowthUser = () => {
                       </div>
                     ))}
                     <div className="d-flex justify-content-end">
-                      <button
-                        className="btn btn-primary btn-sm"
-                        type="button"
-                        onClick={() =>
-                          setGrowthData({
-                            ...growthData,
-                            candidateInfo: [
-                              ...growthData.candidateInfo,
-                              {
-                                name: "",
-                                experience: "",
-                                skillSet: [],
-                                jobTitle: "",
-                                team: "",
-                                location: "",
-                                joiningDate: "",
-                                status: "",
-                                showDeleteButton: true,
-                                id: id,
-                              },
-                            ],
-                          })
-                        }
-                      >
-                        <i className="fa fa-plus "></i>
-                      </button>
+                      {growthData.buttonStatus !== "Sent" ? (
+                        <button
+                          className="btn btn-primary btn-sm"
+                          type="button"
+                          onClick={() =>
+                            setGrowthData({
+                              ...growthData,
+                              candidateInfo: [
+                                ...growthData.candidateInfo,
+                                {
+                                  name: "",
+                                  experience: "",
+                                  skillSet: [],
+                                  jobTitle: "",
+                                  team: "",
+                                  location: "",
+                                  joiningDate: "",
+                                  status: "",
+                                  showDeleteButton: true,
+                                  id: id,
+                                },
+                              ],
+                            })
+                          }
+                        >
+                          <i className="fa fa-plus "></i>
+                        </button>
+                      ) : null}
                     </div>
                     <br />
 
